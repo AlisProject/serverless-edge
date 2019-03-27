@@ -1,0 +1,4 @@
+.envrc
+dist
+tmp
+packaged-template.yaml

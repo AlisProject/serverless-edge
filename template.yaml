@@ -1,0 +1,53 @@
+AWSTemplateFormatVersion: 2010-09-09
+
+Transform: AWS::Serverless-2016-10-31
+
+Resources:
+  EdgeLambdaRole:
+    Type: "AWS::IAM::Role"
+    Properties:
+      AssumeRolePolicyDocument:
+        Version: "2012-10-17"
+        Statement:
+            Effect: "Allow"
+            Principal:
+              Service:
+                - "lambda.amazonaws.com"
+                - "edgelambda.amazonaws.com"
+            Action:
+              - "sts:AssumeRole"
+      Path: "/service-role/"
+      ManagedPolicyArns:
+        - "arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole"
+
+  ViewerRequestFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: ./dist/viewer_request.zip
+      Handler: index.handler
+      Runtime: nodejs8.10
+      MemorySize: 128
+      Timeout: 1
+      Role: !GetAtt EdgeLambdaRole.Arn
+
+  ViewerRequestFunctionVersion:
+    Type: "AWS::Lambda::Version"
+    Properties:
+      FunctionName: !Ref ViewerRequestFunction
+      Description: "A version of ViewerRequestFunction"
+
+  OriginResponseFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: ./dist/origin_response.zip
+      Handler: index.handler
+      Runtime: nodejs8.10
+      MemorySize: 1024
+      Timeout: 10
+      Role: !GetAtt EdgeLambdaRole.Arn
+
+  OriginResponseFunctionVersion:
+    Type: "AWS::Lambda::Version"
+    Properties:
+      FunctionName: !Ref OriginResponseFunction
+      Description: "A version of OriginResponseFunction"
