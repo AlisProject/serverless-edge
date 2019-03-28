@@ -64,7 +64,7 @@ exports.handler = (event, context, callback) => {
   }
 
   // read the accept header to determine if webP is supported.
-  let accept = headers['accept']?headers['accept'][0].value:"";
+  let accept = headers['accept'] ? headers['accept'][0].value : "";
 
   let url = [];
   // build the new uri to be forwarded upstream
