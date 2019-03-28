@@ -1,0 +1,5 @@
+# --- ALIS ---
+
+## ALISのアプリケーションID
+## すべてのサブシステムで同じ値を使う必要がある
+export ALIS_APP_ID=alis
