@@ -7,7 +7,7 @@ const querystring = require('querystring');
 const variables = {
   allowedDimension : [
       {w:48,h:48}, {w:80,h:80}, {w:160,h:160}, {w:200,h:200},
-      {w:592,h:296}, {w:680,h:382}, {w:1420,h:824}, {w:800, h:2160}
+      {w:592,h:296}, {w:680,h:382}, {w:1420,h:824}, {w:1200, h:630}, {w:800, h:2160}
     ],
   defaultDimension : {w:592,h:296},
   variance: 20,
