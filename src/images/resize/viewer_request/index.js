@@ -76,6 +76,10 @@ exports.handler = (event, context, callback) => {
     url.push(variables.webpExtension);
   }
   else{
+    // png ファイルの場合、容量が増加するパターンがあったため、webp 未対応の場合は圧縮処理対象外とする
+    if(extension === 'png') {
+      callback(null, request);
+    }
     url.push(extension);
   }
   url.push(imageName+"."+extension);
