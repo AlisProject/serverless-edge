@@ -80,10 +80,17 @@ exports.handler = (event, context, callback) => {
               if(width===800 && height===2160) {
                 resizeParam['fit'] = Sharp.fit.inside
               }
+              return image
+                .webp({
+                  quality: 100,
+                  nearLossless: true
+                })
+                .resize(resizeParam)
+                .toFormat(requiredFormat)
+                .toBuffer()
+
             }
             return image
-              .resize(resizeParam)
-              .toFormat(requiredFormat)
               .toBuffer()
           })
           .catch(() => { console.log("Exception while reading image to bucket")});
